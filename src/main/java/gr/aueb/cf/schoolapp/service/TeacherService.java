@@ -15,6 +15,10 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -81,5 +85,19 @@ public class TeacherService {
     private String getFileExtension(String filename) {
         if (filename == null || !filename.contains(".")) return "";
         return filename.substring(filename.lastIndexOf("."));
+    }
+
+    @Transactional
+    public Page<TeacherReadOnlyDTO> getPaginatedTeachers(int page, int size) {
+        String defaultSort = "id";
+        Pageable pageable = PageRequest.of(page, size, Sort.by(defaultSort).ascending());
+        return teacherRepository.findAll(pageable).map(mapper::mapToTeacherReadOnlyDTO);
+    }
+
+    @Transactional
+    public Page<TeacherReadOnlyDTO> getPaginatedSortedTeacher(int page, int size, String sortBy, String sortDirection) {
+        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return teacherRepository.findAll(pageable).map(mapper::mapToTeacherReadOnlyDTO);
     }
 }
