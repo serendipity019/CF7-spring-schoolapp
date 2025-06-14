@@ -8,7 +8,7 @@ import org.springframework.lang.Nullable;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class TeacherFilters {
+public class TeacherFilters extends GenericFilters {
     @Nullable
     private String uuid;
 
