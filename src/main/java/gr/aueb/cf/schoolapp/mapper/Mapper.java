@@ -18,7 +18,7 @@ public class Mapper {
     public TeacherReadOnlyDTO mapToTeacherReadOnlyDTO(TeacherEntity teacher) {
         // Map User to UserReadOnlyDTO
         UserReadOnlyDTO userDTO = new UserReadOnlyDTO(teacher.getUser().getFirstname(),
-                teacher.getUser().getLastname(), teacher.getUser().getVat());
+                teacher.getUser().getLastname(), teacher.getUser().getAfm());
 //        userDTO.firstname(teacher.user().firstname());
 //        userDTO.lastname(teacher.getUser().getLastname());
 //        userDTO.vat(teacher.getUser().getVat());
@@ -53,7 +53,7 @@ public class Mapper {
         user.setLastname(userDTO.lastname());
         user.setUsername(userDTO.username());
         user.setPassword(passwordEncoder.encode(userDTO.password()));
-        user.setVat(userDTO.vat());
+        user.setAfm(userDTO.vat());
         user.setFatherName(userDTO.fatherName());
         user.setFatherLastname(userDTO.fatherLastname());
         user.setMotherName(userDTO.motherName());
