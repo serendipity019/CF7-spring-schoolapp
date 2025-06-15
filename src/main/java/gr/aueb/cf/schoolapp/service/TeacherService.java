@@ -30,7 +30,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -103,6 +105,11 @@ public class TeacherService {
         Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
         return teacherRepository.findAll(pageable).map(mapper::mapToTeacherReadOnlyDTO);
+    }
+
+    public List<TeacherReadOnlyDTO> getTeachersFiltered(TeacherFilters filters) {
+        return  teacherRepository.findAll(getSpecsFromFilters(filters))
+                .stream().map(mapper::mapToTeacherReadOnlyDTO).collect(Collectors.toList());
     }
 
     @Transactional
