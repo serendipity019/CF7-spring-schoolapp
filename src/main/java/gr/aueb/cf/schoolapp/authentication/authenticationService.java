@@ -5,6 +5,7 @@ import gr.aueb.cf.schoolapp.dto.AuthenticationRequestDTO;
 import gr.aueb.cf.schoolapp.dto.AuthenticationResponseDTO;
 import gr.aueb.cf.schoolapp.model.UserEntity;
 import gr.aueb.cf.schoolapp.repository.UserRepository;
+import gr.aueb.cf.schoolapp.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
